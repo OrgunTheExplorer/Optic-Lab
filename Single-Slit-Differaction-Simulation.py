@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import tkinter as tk
 
 # Intensity calculation function
@@ -35,7 +35,13 @@ root.title("Single Slit Diffraction Simulator")
 # Matplotlib figure
 fig, ax = plt.subplots(figsize=(7, 4))
 canvas = FigureCanvasTkAgg(fig, master=root)
-canvas.get_tk_widget().pack()
+canvas_widget = canvas.get_tk_widget()
+canvas_widget.pack()
+
+# Add toolbar for zoom/pan
+toolbar = NavigationToolbar2Tk(canvas, root)
+toolbar.update()
+canvas._tkcanvas.pack()
 
 # Wavelength slider
 wavelength_slider = tk.Scale(root, from_=400, to=700, resolution=1,
@@ -57,6 +63,7 @@ slit_slider.pack(fill=tk.X, padx=10)
 
 update_plot()
 root.mainloop()
+
 
 
 
