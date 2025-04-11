@@ -21,8 +21,7 @@ def update_plot(val=None):
 
     ax.clear()
     ax.plot(x * 1e3, I, color='blue')
-    ax.set_title(f"Single Slit Diffraction\nλ = {int(wavelength_slider.get())} nm, "
-                 f"L = {L:.2f} m, a = {slit_width} μm")
+    ax.set_title(f"Single Slit Diffraction\nλ = {int(wavelength_slider.get())} nm, "f"L = {L:.2f} m, a = {slit_width} μm")
     ax.set_xlabel("Position on screen (mm)")
     ax.set_ylabel("Intensity (a.u.)")
     ax.grid(True)
@@ -44,20 +43,17 @@ toolbar.update()
 canvas._tkcanvas.pack()
 
 # Wavelength slider
-wavelength_slider = tk.Scale(root, from_=400, to=700, resolution=1,
-                             orient=tk.HORIZONTAL, label="Wavelength (nm)", command=update_plot)
+wavelength_slider = tk.Scale(root, from_=400, to=700, resolution=1, orient=tk.HORIZONTAL, label="Wavelength (nm)", command=update_plot)
 wavelength_slider.set(550)
 wavelength_slider.pack(fill=tk.X, padx=10)
 
 # Distance slider
-distance_slider = tk.Scale(root, from_=0.1, to=2.0, resolution=0.01,
-                           orient=tk.HORIZONTAL, label="Distance to Screen (m)", command=update_plot)
+distance_slider = tk.Scale(root, from_=0.1, to=2.0, resolution=0.01, orient=tk.HORIZONTAL, label="Distance to Screen (m)", command=update_plot)
 distance_slider.set(1.0)
 distance_slider.pack(fill=tk.X, padx=10)
 
 # Slit width slider
-slit_slider = tk.Scale(root, from_=5, to=100, resolution=1,
-                       orient=tk.HORIZONTAL, label="Slit Width (μm)", command=update_plot)
+slit_slider = tk.Scale(root, from_=5, to=100, resolution=1, orient=tk.HORIZONTAL, label="Slit Width (μm)", command=update_plot)
 slit_slider.set(20)
 slit_slider.pack(fill=tk.X, padx=10)
 
