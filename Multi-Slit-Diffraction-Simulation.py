@@ -1,3 +1,4 @@
+
 import numpy as np
 import tkinter as tk
 from tkinter import ttk
@@ -7,14 +8,19 @@ import matplotlib.pyplot as plt
 # --- Color mapping for wavelengths ---
 def wavelength_to_rgb(wavelength_nm):
     w = wavelength_nm
-    if w < 380 or w > 780: return (0, 0, 0)
-    if w < 440: r, g, b = -(w - 440) / 60, 0.0, 1.0
-    elif w < 490: r, g, b = 0.0, (w - 440) / 50, 1.0
-    elif w < 510: r, g, b = 0.0, 1.0, -(w - 510) / 20
-    elif w < 580: r, g, b = (w - 510) / 70, 1.0, 0.0
-    elif w < 645: r, g, b = 1.0, -(w - 645) / 65, 0.0
+    if w >= 380 and w <= 440: r, g, b = -(w - 440) / 60, 0.0, 1.0
+    elif w >= 440 and w <= 490: r, g, b = 0.0, (w - 440) / 50, 1.0
+    elif w >= 490 and w <= 510: r, g, b = 0.0, 1.0, -(w - 510) / 20
+    elif w >= 510 and w <= 580: r, g, b = (w - 510) / 70, 1.0, 0.0
+    elif w >= 580 and w <= 645: r, g, b = 1.0, -(w - 645) / 65, 0.0
+    elif w >= 645 and w <= 781: r, g, b = 1.0, 0.0, 0.0
     else: r, g, b = 1.0, 0.0, 0.0
-    factor = 1 if 420 <= w <= 700 else 0.3
+
+# Let the intensity fall off near the vision limits
+    if w >= 380 and w < 420: factor = 0.3 + 0.7 * (w- 380) / (420 - 380)
+    elif w >= 420 and w < 701: factor = 1.0
+    elif w >= 701 and w< 781: factor = 0.3 + 0.7 * (780 - w) / (780 - 700)
+    else: factor = 0.0
     return tuple(min(max(i * factor, 0), 1) for i in (r, g, b))
 
 # --- Physics ---
